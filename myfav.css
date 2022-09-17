@@ -1,0 +1,75 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+    color: white;
+}
+#heading{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    width: 95%;
+    padding: 20px 50px;
+    font-size: 3rem;
+    font-weight: 100;
+    margin-top: 20px;
+    
+}
+#btns{
+    padding-right: 50px;
+}
+#btns button , #home{
+    border: none;
+    background: none;
+    font-size: 2rem;
+}
+
+#btns button:hover , #home:hover{
+    border: none;
+    background: none;
+    font-size: 2rem;
+    color: red;
+}
+
+#clear-whole-list{
+    color: red;
+}
+
+#list-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie-details{
+    margin: 20px;
+    border-radius: 20px;
+}
+
+#movieimg{
+    border-radius: 20px;
+    height: 400px;
+    width: 320px;
+}
+
+#details{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.title{
+    max-width: 200px;
+}
+
+.title a{
+    font-size: 1.8rem;
+    color: white;
+    text-decoration: none;
+}
+
+#removeicon{
+    font-size: 1.6rem;
+    color: red;
+}
