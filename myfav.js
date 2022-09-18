@@ -1,15 +1,13 @@
 var storageString = localStorage.getItem('MovieArray');
 var myListArray = JSON.parse(storageString);
 
-const TMDB_API_KEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
-
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-
-const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const APIKEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
+const BASEURL = 'https://api.themoviedb.org/3';
+const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
 myListArray.forEach(async id =>{
     let id_query = `/movie/${id}?language=en-US&`;
-    let final_url = TMDB_BASE_URL+id_query+TMDB_API_KEY;
+    let final_url = BASEURL+id_query+APIKEY;
     await apiFunctionCall(final_url, id);
 });
 
@@ -33,7 +31,7 @@ function renderListItems(jsonResp, id){
 
             <div class="thumbnail">
                 <a href="moviePage.html?id=${id}">
-                    <img id="movieimg" src=${TMDB_IMAGE_BASE_URL+jsonResp.poster_path} alt="Thumbnail">
+                    <img id="movieimg" src=${IMAGEURL+jsonResp.poster_path} alt="Thumbnail">
                 <a/>
             </div>
             <div id="details">

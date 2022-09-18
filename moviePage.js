@@ -1,8 +1,6 @@
-const TMDB_API_KEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
-
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-
-const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const APIKEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
+const BASEURL = 'https://api.themoviedb.org/3';
+const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
 let id = '';
 const urlParams = new URLSearchParams(location.search);
@@ -11,7 +9,7 @@ for(const [key, value]of urlParams){
 }
 
 let id_query = `/movie/${id}?language=en-US&append_to_response=videos&`;
-let final_url = TMDB_BASE_URL+id_query+TMDB_API_KEY;
+let final_url = BASEURL+id_query+APIKEY;
 
 apiRequestCall(final_url);
 
@@ -33,7 +31,7 @@ function apiRequestCall(url){
 function populateMoviesPage(myJson){
     var finalMovieTrailerArray = myJson.videos.results.filter(filterCriteria);
 
-    document.body.style.backgroundImage = `url(${TMDB_IMAGE_BASE_URL+myJson.backdrop_path}), linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0) 250%)`;
+    document.body.style.backgroundImage = `url(${IMAGEURL+myJson.backdrop_path}), linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0) 250%)`;
     var eachMovieDiv = document.createElement('div');
     eachMovieDiv.classList.add('each-movie-page');
 
@@ -50,7 +48,7 @@ function populateMoviesPage(myJson){
 
     eachMovieDiv.innerHTML = `
         <div class="movie-poster">
-            <img src=${TMDB_IMAGE_BASE_URL+myJson.poster_path} alt="Poster">
+            <img src=${IMAGEURL+myJson.poster_path} alt="Poster">
         </div>
         <div class="movie-details">
             <div class="title">

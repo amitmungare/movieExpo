@@ -1,16 +1,12 @@
+const APIKEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
+const HOMEURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
 
-// const TMDB_API_KEY = `https://api.themoviedb.org/3/movie/550?api_key=96c05c6f53c2f9b20b3e42af4887dc76`;
+// const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-const TMDB_API_KEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
-
-const TMDB_HOME_URL = `https://api.themoviedb.org/3/discover/movie?${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
-
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-
-const TMDB_BEST_R_RATED = '/discover/movie/?certification_country=US&certification=R&sort_by=popularity.desc&';
+// const TMDB_BEST_R_RATED = '/discover/movie/?certification_country=US&certification=R&sort_by=popularity.desc&';
 
 
-const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
 var movieContainer = document.getElementById('movie-container');
 var webLogo = document.getElementById('logo');
@@ -33,7 +29,7 @@ for(let year=2022; year>=2000; year--){
     // bestMoviesOfYearDropDownMenu.add(option);
 }
 
-apiRequestCall(TMDB_HOME_URL);
+apiRequestCall(HOMEURL);
 
 function apiRequestCall(url){
     const xhr = new XMLHttpRequest();
@@ -44,18 +40,18 @@ function apiRequestCall(url){
         var res = xhr.response;
         var conJson = JSON.parse(res);
         var moviesObjArray = conJson.results;
-        moviesObjArray.forEach(movie => createMovieElement(movie));
+        moviesObjArray.forEach(movie => moviesElement(movie));
         addMovieToListButtonArray = document.getElementsByClassName('.add-movie-to-list');
         console.log(addMovieToListButtonArray);
     }
 }
 
-function createMovieElement(movie){
+function moviesElement(movie){
     var movieElement = document.createElement('div');
     movieElement.classList.add('movie-element');
     movieElement.innerHTML = `
         <div class="movie-poster">
-            <a href="moviePage.html?id=${movie.id}"><img src= ${TMDB_IMAGE_BASE_URL+movie.poster_path} alt="Movie Poster"></a>
+            <a href="moviePage.html?id=${movie.id}"><img src= ${IMAGEURL+movie.poster_path} alt="Movie Poster"></a>
         </div>
         <div class="movie-title">${movie.title}</div>
         <div class="movie-element-tags">
@@ -72,7 +68,7 @@ function createMovieElement(movie){
 
 webLogo.addEventListener('click', function(){
     pageHeading.innerHTML = 'best popular movies';
-    apiRequestCall(TMDB_HOME_URL);
+    apiRequestCall(HOMEURL);
 });
 
 var myMovieList=[];
@@ -102,7 +98,7 @@ function addingMovieToList(buttonID){
 searchInput.addEventListener('keyup', function(){
     var searchedInput = searchInput.value;
 
-    var urlForThisInput = `https://api.themoviedb.org/3/search/movie?query=${searchedInput}&${TMDB_API_KEY}`;
+    var urlForThisInput = `https://api.themoviedb.org/3/search/movie?query=${searchedInput}&${APIKEY}`;
     if(searchedInput.length !=0){
         apiRequestCall(urlForThisInput);
     }else{
@@ -121,7 +117,7 @@ function disablePvreBtn(){
 
 nextBtn.addEventListener('click',()=>{
     pageNo++;
-    let tempURL = `https://api.themoviedb.org/3/discover/movie?${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
+    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
     apiRequestCall(tempURL);
     disablePvreBtn();
 });
@@ -131,7 +127,7 @@ prevBtn.addEventListener('click',()=>{
         return;
     }
     pageNo--;
-    let tempURL = `https://api.themoviedb.org/3/discover/movie?${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
+    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
     apiRequestCall(tempURL);
     disablePvreBtn();
 })
