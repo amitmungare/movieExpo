@@ -1,51 +1,44 @@
+// this is the api key
 const APIKEY = 'api_key=96c05c6f53c2f9b20b3e42af4887dc76';
+// this is the home url 
 const HOMEURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
-
-// const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-
-// const TMDB_BEST_R_RATED = '/discover/movie/?certification_country=US&certification=R&sort_by=popularity.desc&';
-
-
+// this is the image url 
 const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 
-var movieContainer = document.getElementById('movie-container');
-var webLogo = document.getElementById('logo');
-var bestMoviesOfYearDropDownMenu = document.getElementById('best-of-year');
-var pageHeading = document.getElementById('page-heading');
-var myListBtn = document.getElementById('my-list');
-
-var searchInput = document.getElementById('searchMovie');
+// fetching elements from indexedDB.html 
+var container = document.getElementById('movie-container');
+var search = document.getElementById('searchMovie');
 var wrapperDiv = document.querySelector('.wrapper');
 var resultsDiv = document.querySelector('.results');
 
-var prevBtn = document.getElementById('prev-page');
-var nextBtn = document.getElementById('next-page');
-let pageNo = 1;
 
-for(let year=2022; year>=2000; year--){
-    var option = document.createElement('option');
-    option.text = year;
-    option.value = year;
-    // bestMoviesOfYearDropDownMenu.add(option);
-}
+// this is the previous button
+var pBtn = document.getElementById('prev-page');
+// this is the next button
+var nBtn = document.getElementById('next-page');
+// count of pages 
+let pageNumber = 1;
 
-apiRequestCall(HOMEURL);
-
-function apiRequestCall(url){
-    const xhr = new XMLHttpRequest();
-    xhr.open('get',url);
-    xhr.send();
-    xhr.onload = function(){
-        movieContainer.innerHTML="";
-        var res = xhr.response;
+// calling function to request api 
+apiCall(HOMEURL);
+// this is the function to get api data 
+function apiCall(url){
+    const x = new XMLHttpRequest();
+    x.open('get',url);
+    x.send();
+    x.onload = function(){
+        container.innerHTML="";
+        var res = x.response;
+        // resp to JSON data 
         var conJson = JSON.parse(res);
-        var moviesObjArray = conJson.results;
-        moviesObjArray.forEach(movie => moviesElement(movie));
+        // array of movies 
+        var moviesArray = conJson.results;
+        // create the movie cards here 
+        moviesArray.forEach(movie => moviesElement(movie));
         addMovieToListButtonArray = document.getElementsByClassName('.add-movie-to-list');
-        console.log(addMovieToListButtonArray);
     }
 }
-
+// create the home page elements 
 function moviesElement(movie){
     var movieElement = document.createElement('div');
     movieElement.classList.add('movie-element');
@@ -58,76 +51,78 @@ function moviesElement(movie){
             <div class="movie-rating">
             <i class="fas fa-star"></i> ${movie.vote_average} 
             </div>
-            <div class="add-movie-to-list"  id="${movie.id}" onclick="addingMovieToList(${movie.id})">
+            <div class="add-movie-to-list"  id="${movie.id}" onclick="addMovie(${movie.id})">
                 <i class="fas fa-plus"></i>
             </div>
         </div>
     `;
-    movieContainer.appendChild(movieElement);
+    container.appendChild(movieElement);
 }
 
-webLogo.addEventListener('click', function(){
-    pageHeading.innerHTML = 'best popular movies';
-    apiRequestCall(HOMEURL);
-});
 
-var myMovieList=[];
-var oldArray=[];
+// array to store fav movies 
+var favMovies=[];
+var oldMovies=[];
 
-function addingMovieToList(buttonID){
-    document.getElementById(buttonID).innerHTML = '<i class="fas fa-check"></i>';
-    if(!myMovieList.includes(buttonID.toString())){
-        myMovieList.push(buttonID.toString());
+// function to add movie to fav list 
+function addMovie(btnId){
+    document.getElementById(btnId).innerHTML = '<i class="fas fa-check"></i>';
+    // to avoid duplicate movies 
+    if(!favMovies.includes(btnId.toString())){
+        favMovies.push(btnId.toString());
     }
-    console.log(myMovieList);
 
-    oldArray = JSON.parse(localStorage.getItem('MovieArray'));
-    if(oldArray==null){
-        localStorage.setItem('MovieArray', JSON.stringify(myMovieList));
+    // getting array from local storage  
+    oldMovies = JSON.parse(localStorage.getItem('MovieArray'));
+    if(oldMovies==null){
+        // if empty 
+        localStorage.setItem('MovieArray', JSON.stringify(favMovies));
     }else{
-        myMovieList.forEach(item=>{
-            if(!oldArray.includes(item)){
-                oldArray.push(item);
+        // if not empty 
+        favMovies.forEach(item=>{
+            if(!oldMovies.includes(item)){
+                oldMovies.push(item);
             }
         })
-        localStorage.setItem('MovieArray', JSON.stringify(oldArray));
+        // adding the movie in local storage 
+        localStorage.setItem('MovieArray', JSON.stringify(oldMovies));
     }
-    console.log(oldArray);
 }
 
-searchInput.addEventListener('keyup', function(){
-    var searchedInput = searchInput.value;
-
-    var urlForThisInput = `https://api.themoviedb.org/3/search/movie?query=${searchedInput}&${APIKEY}`;
-    if(searchedInput.length !=0){
-        apiRequestCall(urlForThisInput);
+// this is the search function 
+search.addEventListener('keyup', function(){
+    // input char in the search box
+    var input = search.value;
+    // getting all the movies related to the input in the search option 
+    var inputUrl = `https://api.themoviedb.org/3/search/movie?query=${input}&${APIKEY}`;
+    if(input.length !=0){
+        apiCall(inputUrl);
     }else{
         window.location.reload();
     }
 })
 
-prevBtn.disabled = true;
-function disablePvreBtn(){
-    if(pageNo ==1){
-        prevBtn.disabled=true;
-    }else{
-        prevBtn.disabled=false;
-    }
+// disable the prev btn when the page is 1
+pBtn.disabled = true;
+function disablePBtn(){
+    if(pageNumber ==1)pBtn.disabled=true;
+    else pBtn.disabled=false;
 }
 
-nextBtn.addEventListener('click',()=>{
-    pageNo++;
-    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
-    apiRequestCall(tempURL);
-    disablePvreBtn();
+// got to next page 
+nBtn.addEventListener('click',()=>{
+    pageNumber++;
+    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}&with_watch_monetization_types=flatrate`;
+    apiCall(tempURL);
+    disablePBtn();
 });
 
-prevBtn.addEventListener('click',()=>{
-    if(pageNo==1){
-        return;
-    }
-    pageNo--;
-    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}&with_watch_monetization_types=flatrate`;
-    apiRequestCall(tempURL);
-    disablePvreBtn();
+// gor to prev page 
+pBtn.addEventListener('click',()=>{
+    if(pageNumber==1)return;
+
+    pageNumber--;
+    let tempURL = `https://api.themoviedb.org/3/discover/movie?${APIKEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}&with_watch_monetization_types=flatrate`;
+    apiCall(tempURL);
+    disablePBtn();
 })
