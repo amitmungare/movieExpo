@@ -1,3 +1,4 @@
+/* this is the css for body , the background color is given as black */
 body{
     margin: 0px;
     padding: 0px;
@@ -6,7 +7,7 @@ body{
     background-size:cover;
     color: rgb(255, 255, 255);
 }
-
+/* header section css */
 #header{
     width: 100%;
     display: flex;
@@ -15,36 +16,33 @@ body{
     background-color: black;
     z-index: 10;
 }
-
-#logo{
+/* setting the width and height of the logo  */
+#logodiv{
     width: 250px;
     height: 100px;
 }
-
 #logoimg{
     width: 110%;
     height: 100%;
 }
-
+/* setting the width of  the search bar  */
 #search-bar{
     width: 35%;
     background-color: black;
 }
-
-.wrapper{
+.search-conten{
     width: 100%;
     padding: 5px;
     border-radius: 10px;
     top: 15px;
 }
-
 #search-area{
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
 }
-
+/* styling the input section of the search function  */
 #search-area input{
     width: 100%;
     font-size: 1.6rem;
@@ -52,13 +50,7 @@ body{
     color: white;
     background-color: black;
 }
-#search-area button{
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-}
-
+/* the result of the search  */
 .results{
     padding: 0px;
     max-height: 600px;
@@ -68,7 +60,6 @@ body{
     padding: 0px;
     margin: 0px;
 }
-
 .results ul li{
     list-style: none;
     padding: 5px 15px;
@@ -78,25 +69,13 @@ body{
     transition: all .5s linear;
 }
 
-.show .results ul li{
-    opacity: 1;
-    display: block;
-}
-.show .results{
-    padding: 10px;
-}
-.results ul li:hover{
-    background-color: aquamarine;
-}
-
-/* header buttons */
-#extra-buttons{
+/* css to the fav btn to neg to fav section */
+#right-section{
     display: flex;
     justify-content: space-around;
     margin: 0px 20px;
 }
-
-#extra-buttons button{
+#right-section button{
     border: none;
     color: white;
     background:none;
@@ -104,20 +83,16 @@ body{
     cursor: pointer;
     padding: 0px 20px;
 }
-
-
-#extra-buttons button:hover, #extra-buttons select:hover{
+#right-section button:hover, #right-section select:hover{
     color: #f01f88;
     text-decoration: none;
 }
-
 #my-list a{
     text-decoration: none;
     color: inherit;
 }
 
-/* all movies elements  */
-
+/* all movies cards  */
 #movie-container{
     margin: auto;
     width: 80%;
@@ -132,16 +107,16 @@ body{
     height: 350px;
     width: 250px;
 }
-.movie-poster:hover{
+.movie-element:hover{
     transform: scale(1.1);
 }
-
 .movie-poster img{
     width: 100%;
     height: 100%;
     border-radius: 20px;
     transition: all .2s ease-in;
 }
+/* name of the movie  */
 .movie-title{
     max-width: 240px;
     margin: 4px;
@@ -149,7 +124,6 @@ body{
     text-align: center;
     font-size: 1.6rem;
     font-weight: bold;
-    font-family: monospace;
 }
 .movie-element-tags{
     margin: 10px;
@@ -157,7 +131,7 @@ body{
     justify-content: space-between;
     align-items: center;
 }
-
+/* movie rating  */
 .movie-rating, .add-movie-to-list{
     font-size: 1.4rem;
 }
@@ -170,7 +144,7 @@ body{
 .add-movie-to-list:hover{
     color: red;
 }
-
+/* prev and next button  */
 .page-navigation{
     display: flex;
     justify-content: center;
@@ -178,13 +152,16 @@ body{
     padding-bottom: 20px;
 }
 .page-navigation button{
-    background: none;
     font-size: 1rem;
     padding: 10px 20px;
     margin: 10px;
     border-radius: 10px;
     color: white;
+    border: none;
     background-color: rgb(234, 33, 117);
+}
+.page-navigation button:hover{
+    transform: scale(1.1);
 }
 
 
@@ -195,7 +172,7 @@ body{
         height: auto;
     }
 }
-
+/* when the screen size is 700 and less  */
 @media screen and (max-width:700px) {
     #header{
         flex-direction: column;
@@ -203,7 +180,7 @@ body{
     #page-heading{
         padding-top: 140px;
     }
-    #extra-buttons{
+    #right-section{
         margin: 10px;
     }
     #search-bar{
@@ -220,6 +197,7 @@ body{
         font-size: 4rem;
     }
 }
+/* when the screen size is 550 and less  */
 @media screen and (max-width:550px) {
     #page-heading{
         font-size: 4.5rem;
@@ -229,6 +207,7 @@ body{
         flex-direction: column;
     }
 }
+/* when the screen size is 380 and less  */
 @media screen and (max-width:380px) {
     #page-heading{
         padding-top: 150px;

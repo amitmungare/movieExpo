@@ -55,7 +55,7 @@ function favMovieData(jsonResp, id){
 }
 
 // removing all the movies from the fav list 
-// clearing the local storage 
+// clearing the local storage.
 document.getElementById('clear-whole-list').addEventListener('click', function(){
     if(window.confirm("clear fav list")){
         localStorage.clear();

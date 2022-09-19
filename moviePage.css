@@ -1,3 +1,4 @@
+/* css for the body  */
 body{
     margin: 0px;
     padding: 0px;
@@ -5,13 +6,13 @@ body{
     background-size: cover;
     color: rgb(255, 255, 255);
 }
+/* css for the main div  */
 #main{
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
+/* display movie details */
 #movie-display{
     display: flex;
     align-items: center;
@@ -28,6 +29,7 @@ body{
     margin: 0px 20px;
     height: 90%;
 }
+/* movie image  */
 .movie-poster img{
     height: 90%;
     width: auto;
@@ -38,15 +40,14 @@ body{
 .movie-poster img:hover{
     box-shadow: 0 28px 9px 0 rgba(0,0,0,0.2);
 }
-
 .movie-duration i{
     color: lightblue;
 }
-
 .movie-details > *{
     margin: 20px 50px;
     font-size: 1.7rem;
 }
+/* movie name */
 .title{
     color: rgb(233, 40, 98);
     margin: 20px 0px;
@@ -56,14 +57,13 @@ body{
 .release_date, .movie-duration{
     padding-right: 30px;
 }
-
+/* youtube video div  */
 .trailer-div{
     transition: all .2s ease;
 }
 .trailer-div i{
     color: red;
 }
-
 #trailer-video-div{
     position: fixed;
     top: 50%;
@@ -75,7 +75,6 @@ body{
     border-radius: 20px;
     background-color: rgb(233, 119, 119);
 }
-
 #trailer-video-div button{
     cursor: pointer;
     font-size: 2rem;
@@ -83,7 +82,7 @@ body{
     background: none;
     border: none;
 }
-
+/* back button  */
 #return-to-home{
     top: 30px;
     left: 30px;
@@ -95,14 +94,13 @@ body{
     border: none;
     color: red;
 }
-
 #return-to-home:hover{
     color: blue;
     font-size: 2.2rem;
     background: none;
     border: none;
 }
-
+/* details of the movie */
 .plot{
     color: bisque;
 }
@@ -114,18 +112,19 @@ body{
         width: 90vw;
     }
 }
-
+/* when the screen size is 1200 and less  */
 @media screen and (max-width: 1200px) {
     #movie-display{
         width: 95vw;
     }
 }
+/* when the screen size is 1000 and less  */
 @media screen and (max-width: 1000px) {
     .movie-poster{
         height: 85%;
     }
 }
-
+/* when the screen size is 900 and less  */
 @media screen and (max-width: 900px) {
     #movie-display{
         margin: auto;
@@ -149,7 +148,7 @@ body{
         text-align: center;
     }
 }
-
+/* when the screen size is 600 and less  */
 @media screen and (max-width: 600px) {
     .movie-details > *{
         font-size: 1.2rem;
@@ -173,7 +172,7 @@ body{
         height: 254px;
     }
 }
-
+/* when the screen size is 530 and less  */
 @media screen and (max-width: 530px) {
 
     .movie-details > *{
@@ -191,7 +190,7 @@ body{
         height: 225px;
     }
 }
-
+/* when the screen size is 470 and less  */
 @media screen and (max-width: 470px) {
     
     .movie-details > *{
@@ -209,7 +208,7 @@ body{
         height: 200px;
     }
 }
-
+/* when the screen size is 400 and less  */
 @media screen and (max-width: 400px) {
     iframe{
         width: 300px;

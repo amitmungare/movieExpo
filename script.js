@@ -8,7 +8,7 @@ const IMAGEURL = 'https://image.tmdb.org/t/p/w500';
 // fetching elements from indexedDB.html 
 var container = document.getElementById('movie-container');
 var search = document.getElementById('searchMovie');
-var wrapperDiv = document.querySelector('.wrapper');
+var wrapperDiv = document.querySelector('.search-conten');
 var resultsDiv = document.querySelector('.results');
 
 
